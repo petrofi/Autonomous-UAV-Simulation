@@ -1,0 +1,86 @@
+# Python environments and caches
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ROS 2 and colcon outputs
+ros2_ws/build/
+ros2_ws/install/
+ros2_ws/log/
+*.bag
+*.bag2
+*.db3
+*.mcap
+
+# CMake and compiled outputs
+build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dll
+*.dylib
+*.exe
+*.bin
+
+# Local upstream or external source trees
+PX4-Autopilot/
+external/
+
+# Gazebo local state
+.gazebo/
+.gz/
+
+# Environment files and secrets
+.env
+.env.*
+!.env.example
+secrets/
+*.pem
+*.key
+*.p12
+*.jks
+*.crt
+
+# Flight, telemetry, and generated data
+*.ulg
+artifacts/
+outputs/
+logs/
+rosbags/
+telemetry/
+reports/generated/
+screenshots/
+tmp/
+temp/
+
+# Datasets and model weights
+datasets/
+data/raw/
+data/processed/
+models/weights/
+*.onnx
+*.pt
+*.pth
+*.tflite
+
+# IDE and editor state
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+Desktop.ini

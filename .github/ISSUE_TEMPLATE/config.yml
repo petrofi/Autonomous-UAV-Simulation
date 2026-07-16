@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Private security report
+    url: https://github.com/petrofi/Autonomous-UAV-Simulation/security/advisories/new
+    about: Report sensitive security concerns privately; never include secrets or sensitive flight data in a public issue.

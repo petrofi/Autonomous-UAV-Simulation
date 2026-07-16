@@ -1,0 +1,27 @@
+schema_version: 1
+
+platform:
+  operating_system: "Ubuntu"
+  version: "24.04"
+  environment: "WSL2"
+
+components:
+  px4:
+    repository: "PX4/PX4-Autopilot"
+    ref: "TBD_AFTER_COMPATIBILITY_TEST"
+
+  ros:
+    distribution: "jazzy"
+
+  gazebo:
+    distribution: "harmonic"
+
+  mavsdk:
+    version: "TBD_AFTER_COMPATIBILITY_TEST"
+
+  python:
+    version: "TBD_AFTER_ENVIRONMENT_CHECK"
+
+notes:
+  - "Exact versions must be pinned after the first compatibility smoke test."
+  - "Do not silently upgrade major project dependencies."
