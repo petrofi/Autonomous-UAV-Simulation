@@ -1,6 +1,6 @@
 # Autonomous UAV Simulation
 
-**Current status:** Phase 1 complete — headless PX4 SITL/Gazebo X500 runtime verified
+**Current status:** Phase 1 complete — headless and GUI PX4 SITL/Gazebo X500 runtime verified
 
 ## Project Overview
 
@@ -64,8 +64,8 @@ uninstalled and their compatibility has not yet been tested.
 ## Development Phases
 
 Phase 0 established repository and architecture scaffolding. Phase 1 verified the
-Ubuntu 24.04 WSL2 environment and the headless PX4 SITL/Gazebo Harmonic X500
-runtime foundation. Phase 2, which covers Gazebo GUI and manual vehicle-control
+Ubuntu 24.04 WSL2 environment and the headless and WSLg GUI PX4 SITL/Gazebo
+Harmonic X500 runtime foundation. Phase 2, which covers manual vehicle-control
 verification, is next but has not started. Autonomous mission behavior and later
 capabilities remain planned; see the [roadmap](docs/roadmap/roadmap.md).
 
@@ -79,9 +79,10 @@ principles. The project makes no production or real-flight security guarantee.
 ## Current Limitations
 
 - No flight, mission, perception, tracking, or security-monitoring code exists.
-- PX4 SITL and Gazebo Harmonic are installed outside this repository and only the
-  headless X500 runtime foundation has been verified.
-- No ROS 2 packages, MAVSDK integration, active CI workflows, or GUI simulation is configured.
+- PX4 SITL and Gazebo Harmonic are installed outside this repository; headless
+  and WSLg GUI X500 runtime foundations have been verified without flight.
+- No ROS 2 packages, MAVSDK integration, active CI workflows, or project-owned
+  simulation launch assets are configured.
 - Autonomous behavior has not been executed or verified.
 - The repository is not ready for production or real-flight use.
 
@@ -94,6 +95,7 @@ principles. The project makes no production or real-flight security guarantee.
 - [Threat model](docs/security/threat-model.md)
 - [Development environment](docs/setup/development-environment.md)
 - [Phase 1B headless smoke test](docs/setup/px4-gazebo-smoke-test-phase1b.md)
+- [Phase 1C Gazebo GUI smoke test](docs/setup/px4-gazebo-gui-smoke-test-phase1c.md)
 - [Test strategy](docs/testing/test-strategy.md)
 - [Contributing](CONTRIBUTING.md)
 - [Security reporting](SECURITY.md)

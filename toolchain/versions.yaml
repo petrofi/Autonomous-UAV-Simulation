@@ -30,5 +30,6 @@ components:
 
 notes:
   - "PX4 SITL, Gazebo Harmonic server, the PX4-Gazebo bridge, and the X500 model passed the Phase 1B headless smoke test on 2026-07-16."
-  - "ROS 2 and MAVSDK remain uninstalled and were not covered by the Phase 1B compatibility result."
+  - "The Gazebo Harmonic GUI opened through the normal WSLg rendering path and passed the Phase 1C X500 GUI smoke test on 2026-07-17."
+  - "ROS 2 and MAVSDK remain uninstalled and were not covered by the Phase 1B or Phase 1C compatibility results."
   - "Do not silently upgrade major project dependencies."

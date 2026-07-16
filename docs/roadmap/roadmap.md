@@ -1,14 +1,14 @@
 # Development Roadmap
 
 The roadmap is sequential and evidence-driven. Phase 1 is complete after the
-verified headless PX4 SITL and Gazebo Harmonic X500 smoke test. Phase 2 is next
-but has not started.
+verified headless and WSLg GUI PX4 SITL and Gazebo Harmonic X500 smoke tests.
+Phase 2 is next but has not started.
 
 | Phase | Scope | Status |
 | --- | --- | --- |
 | Phase 0 | Repository and architecture scaffolding | Complete |
-| Phase 1 | Environment and headless PX4 SITL/Gazebo X500 smoke test | Complete — runtime verified |
-| Phase 2 | Gazebo GUI and manual vehicle-control verification | Next — not started |
+| Phase 1 | Environment plus headless and GUI PX4 SITL/Gazebo X500 smoke tests | Complete — runtime verified |
+| Phase 2 | Manual vehicle-control verification in simulation | Next — not started |
 | Phase 3 | Autonomous takeoff, landing and waypoint mission | Planned — not started |
 | Phase 4 | Return-to-home, geofence and failsafe scenarios | Planned — not started |
 | Phase 5 | ROS 2 modular autonomy architecture | Planned — not started |

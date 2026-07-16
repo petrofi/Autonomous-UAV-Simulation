@@ -1,7 +1,8 @@
 # Development Environment
 
 Status: Phase 1 verified — the minimum PX4 SITL and Gazebo Harmonic X500
-simulation foundation is installed and has passed a headless runtime smoke test.
+simulation foundation is installed and has passed headless and WSLg GUI runtime
+smoke tests.
 
 ## Verified Baseline
 
@@ -33,20 +34,34 @@ The test built PX4 SITL, started the Gazebo server without the GUI, spawned
 velocities while the vehicle remained disarmed and on the ground. The process
 group was then stopped with SIGINT, and no PX4 or Gazebo process remained.
 
+Phase 1C then ran the normal GUI target from the same external PX4 checkout:
+
+```bash
+make px4_sitl gz_x500
+```
+
+Gazebo Sim opened through WSLg without a software-rendering override. The
+default world and X500 rendered, camera orbit, dolly, and zoom worked, live IMU
+traffic remained available through the PX4-Gazebo bridge, and all four sampled
+motor velocities remained zero. Bounded runs rendered stably, and the final run
+was stopped with SIGINT without leaving a PX4, Gazebo, Make, or Ninja process.
+
 Detailed records:
 
 - [Phase 1 environment audit](environment-audit-phase1.md)
 - [Phase 1A PX4 and Gazebo installation](px4-gazebo-installation-phase1a.md)
 - [Phase 1B headless runtime smoke test](px4-gazebo-smoke-test-phase1b.md)
+- [Phase 1C Gazebo GUI runtime smoke test](px4-gazebo-gui-smoke-test-phase1c.md)
 
 ## Current Boundary
 
 ROS 2, MAVSDK, QGroundControl, Docker, and Gazebo Classic are not installed as
-project dependencies. No GUI simulation, manual control, arming, takeoff,
-autonomous flight, mission logic, perception, or security feature has been
-implemented or verified.
+project dependencies. No manual vehicle control, arming, takeoff, autonomous
+flight, mission logic, perception, or security feature has been implemented or
+verified.
 
 The verified baseline establishes only that PX4 SITL, Gazebo Harmonic, the
-PX4-Gazebo bridge, and the X500 vehicle model can start and exchange simulation
-data in the approved WSL2 environment. It does not establish production or
-real-flight readiness.
+PX4-Gazebo bridge, and the X500 vehicle model can start, exchange simulation
+data, render through WSLg, support GUI camera navigation, and stop cleanly in the
+approved WSL2 environment. It does not establish controlled flight, production,
+or real-flight readiness.
