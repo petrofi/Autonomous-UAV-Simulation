@@ -1,6 +1,19 @@
 # Conceptual System Overview
 
-Status: Conceptual — no architecture components have been implemented yet.
+Status: The simulation foundation is verified; autonomy architecture components
+remain conceptual and unimplemented.
+
+## Verified Simulation Foundation
+
+Phase 1B verified the lowest layer of the planned stack in headless mode:
+
+- PX4 SITL v1.17.0
+- Gazebo Harmonic server with Gazebo Sim 8.14.0
+- PX4-Gazebo bridge sensor and actuator-topic connectivity
+- Gazebo X500 vehicle model using PX4 airframe 4001
+
+The vehicle remained disarmed and on the ground. This result does not verify the
+planned autonomy, safety, security, telemetry, ROS 2, or MAVSDK components.
 
 The planned system is a simulation-first, modular autonomy stack for civil
 research, safe navigation, and authorized visual tracking. Its primary control

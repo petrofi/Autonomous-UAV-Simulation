@@ -1,6 +1,6 @@
 # Autonomous UAV Simulation
 
-**Current status:** Phase 0 — Initial Scaffolding
+**Current status:** Phase 1 complete — headless PX4 SITL/Gazebo X500 runtime verified
 
 ## Project Overview
 
@@ -10,7 +10,7 @@ marker and object tracking. The repository is designed around modular autonomy,
 explicit safety supervision, observable system behavior, and security-oriented
 command handling.
 
-> The project currently contains architecture and repository scaffolding only. Autonomous flight, perception and security features have not been implemented yet.
+> The simulation foundation is verified, but autonomous flight, perception, safety, and security features have not been implemented yet.
 
 ## Initial Objectives
 
@@ -22,7 +22,7 @@ command handling.
 - Authorized visual marker and object tracking
 - Security-oriented command validation
 
-## Planned Technology Stack
+## Technology Stack
 
 - Ubuntu 24.04 on WSL2
 - PX4 SITL
@@ -31,9 +31,9 @@ command handling.
 - MAVSDK
 - Python, C++, and OpenCV
 
-Exact compatible versions will be pinned in
-[`toolchain/versions.yaml`](toolchain/versions.yaml) after an environment and
-compatibility smoke test.
+The Phase 1 tested PX4, Gazebo, and Python versions are pinned in
+[`toolchain/versions.yaml`](toolchain/versions.yaml). ROS 2 and MAVSDK remain
+uninstalled and their compatibility has not yet been tested.
 
 ## Architecture Principles
 
@@ -61,14 +61,13 @@ compatibility smoke test.
 | `toolchain/` | Central compatibility and version manifest |
 | `tools/` | Planned offline analysis and dataset-support utilities |
 
-## Planned Development Phases
+## Development Phases
 
-Phase 0 establishes repository and architecture scaffolding. Later phases plan
-environment verification, PX4 SITL and Gazebo smoke tests, autonomous mission
-behaviors, failsafe scenarios, ROS 2 modular autonomy, controlled visual
-tracking, security hardening, hardware-in-the-loop research, and finally a
-separate controlled real-hardware evaluation. Only Phase 0 is currently in
-progress; see the [roadmap](docs/roadmap/roadmap.md) for the full sequence.
+Phase 0 established repository and architecture scaffolding. Phase 1 verified the
+Ubuntu 24.04 WSL2 environment and the headless PX4 SITL/Gazebo Harmonic X500
+runtime foundation. Phase 2, which covers Gazebo GUI and manual vehicle-control
+verification, is next but has not started. Autonomous mission behavior and later
+capabilities remain planned; see the [roadmap](docs/roadmap/roadmap.md).
 
 ## Safety and Security Position
 
@@ -79,9 +78,11 @@ principles. The project makes no production or real-flight security guarantee.
 
 ## Current Limitations
 
-- No flight, mission, perception, tracking, security-monitoring, or PX4 connection code exists.
-- No ROS 2 packages, active CI workflows, simulators, or system dependencies are configured.
-- Planned behavior has not yet been executed or verified.
+- No flight, mission, perception, tracking, or security-monitoring code exists.
+- PX4 SITL and Gazebo Harmonic are installed outside this repository and only the
+  headless X500 runtime foundation has been verified.
+- No ROS 2 packages, MAVSDK integration, active CI workflows, or GUI simulation is configured.
+- Autonomous behavior has not been executed or verified.
 - The repository is not ready for production or real-flight use.
 
 ## Documentation
@@ -92,6 +93,7 @@ principles. The project makes no production or real-flight security guarantee.
 - [Safety principles](docs/safety/safety-principles.md)
 - [Threat model](docs/security/threat-model.md)
 - [Development environment](docs/setup/development-environment.md)
+- [Phase 1B headless smoke test](docs/setup/px4-gazebo-smoke-test-phase1b.md)
 - [Test strategy](docs/testing/test-strategy.md)
 - [Contributing](CONTRIBUTING.md)
 - [Security reporting](SECURITY.md)

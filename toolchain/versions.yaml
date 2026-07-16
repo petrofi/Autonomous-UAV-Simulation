@@ -8,20 +8,27 @@ platform:
 components:
   px4:
     repository: "PX4/PX4-Autopilot"
-    ref: "TBD_AFTER_COMPATIBILITY_TEST"
+    ref: "v1.17.0"
+    commit: "d6f12ad1c4f70ad3230afd7d86e971421e02fef4"
+    source: "/home/darklove/src/PX4-Autopilot"
 
   ros:
     distribution: "jazzy"
+    status: "not_installed"
 
   gazebo:
     distribution: "harmonic"
+    sim_version: "8.14.0"
+    metapackage_version: "1.0.0-1~noble"
 
   mavsdk:
-    version: "TBD_AFTER_COMPATIBILITY_TEST"
+    version: "TBD_AFTER_MAVSDK_COMPATIBILITY_TEST"
+    status: "not_installed"
 
   python:
-    version: "TBD_AFTER_ENVIRONMENT_CHECK"
+    version: "3.12.3"
 
 notes:
-  - "Exact versions must be pinned after the first compatibility smoke test."
+  - "PX4 SITL, Gazebo Harmonic server, the PX4-Gazebo bridge, and the X500 model passed the Phase 1B headless smoke test on 2026-07-16."
+  - "ROS 2 and MAVSDK remain uninstalled and were not covered by the Phase 1B compatibility result."
   - "Do not silently upgrade major project dependencies."
