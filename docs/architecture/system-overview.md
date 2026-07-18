@@ -1,8 +1,9 @@
 # Conceptual System Overview
 
 Status: The headless and GUI simulation foundation and QGroundControl telemetry
-runtime are verified without flight; autonomy architecture components remain
-conceptual and unimplemented.
+runtime and a controlled simulation arm/disarm cycle are verified without
+takeoff or flight; autonomy architecture components remain conceptual and
+unimplemented.
 
 ## Verified Simulation Foundation
 
@@ -28,6 +29,14 @@ setpoints only; they were not present in final actuator outputs or applied
 Gazebo motor-speed commands. The vehicle remained disarmed and on the ground.
 These results do not verify manual vehicle control or the planned autonomy,
 safety, security, ROS 2, MAVSDK, or project-owned telemetry components.
+
+Phase 2B verified one explicitly authorized operator-controlled test through the
+PX4 SITL shell. A normal arm request was accepted, PX4 and QGroundControl
+reported the armed state, and the four applied motor outputs showed symmetric
+idle behavior. A normal disarm request followed after approximately two seconds,
+and all applied outputs returned to zero. The vehicle remained landed, in Hold,
+and without a failsafe. No autonomy path, takeoff, throttle, movement, mission,
+mode-change, raw-actuator, or forced-arm command was used.
 
 The planned system is a simulation-first, modular autonomy stack for civil
 research, safe navigation, and authorized visual tracking. Its primary control
@@ -59,8 +68,9 @@ failsafe activations, health changes, and security-relevant events without
 becoming alternate command paths.
 
 QGroundControl is currently a verified external telemetry observer only. Phase
-2A did not use it to arm, change mode, upload a mission, modify a parameter, or
-send an actuator or other flight command.
+2A and Phase 2B did not use it to arm, change mode, upload a mission, modify a
+parameter, or send an actuator or other flight command. Phase 2B verified that
+it received the PX4 armed and disarmed state transitions.
 
 ## Planned Operating Boundary
 

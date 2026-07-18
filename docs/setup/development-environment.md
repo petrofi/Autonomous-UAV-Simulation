@@ -2,7 +2,8 @@
 
 Status: Phase 2 in progress — the PX4 SITL and Gazebo Harmonic X500 simulation
 foundation has passed headless and WSLg GUI runtime smoke tests, and the
-QGroundControl telemetry runtime has been verified without flight.
+QGroundControl telemetry and controlled arm/disarm runtimes have been verified
+without takeoff or flight.
 
 ## Verified Baseline
 
@@ -69,17 +70,32 @@ Detailed record:
 
 - [Phase 2A QGroundControl telemetry validation](qgroundcontrol-telemetry-validation-phase2a.md)
 
+Phase 2B issued one normal `commander arm` request after all PX4 pre-flight
+checks passed and an independent normal-disarm watchdog was ready. PX4 and
+QGroundControl reported the armed state, `actuator_armed` became true, and four
+equal idle outputs were applied. A normal `commander disarm` request was sent
+after approximately two seconds. The vehicle remained landed and in Hold with
+no failsafe, all applied outputs returned to zero, and observation continued for
+at least 20 seconds. No throttle, takeoff, movement, mission, mode-change,
+parameter, manual-control, raw-actuator, or forced-arm command was sent.
+
+Detailed record:
+
+- [Phase 2B controlled arm/disarm validation](controlled-arm-disarm-validation-phase2b.md)
+
 ## Current Boundary
 
 ROS 2, MAVSDK, Docker, and Gazebo Classic are not installed as project
 dependencies. QGroundControl is an external operator runtime whose telemetry
 connection has been verified; it is not a project-owned telemetry module. No
-manual vehicle control, arming, takeoff, autonomous flight, mission logic,
-perception, or security feature has been implemented or verified.
+takeoff, hover, landing, throttle-bearing manual flight, autonomous flight,
+mission logic, perception, or security feature has been implemented or
+verified. Only normal simulation arm/disarm and idle-output behavior have been
+verified.
 
 The verified baseline establishes only that PX4 SITL, Gazebo Harmonic, the
 PX4-Gazebo bridge, and the X500 vehicle model can start, exchange simulation
 data, render through WSLg, support GUI camera navigation, and stop cleanly in the
 approved WSL2 environment, and that QGroundControl can receive live MAVLink
-telemetry while the vehicle remains disarmed. It does not establish controlled
+telemetry and arm-state changes. It does not establish takeoff, controlled
 flight, production, or real-flight readiness.
