@@ -1,7 +1,8 @@
 # Conceptual System Overview
 
-Status: The headless and GUI simulation foundation is verified; autonomy
-architecture components remain conceptual and unimplemented.
+Status: The headless and GUI simulation foundation and QGroundControl telemetry
+runtime are verified without flight; autonomy architecture components remain
+conceptual and unimplemented.
 
 ## Verified Simulation Foundation
 
@@ -15,9 +16,18 @@ and WSLg GUI modes:
 - Default-world GUI rendering and X500 visibility through WSLg
 - Gazebo camera orbit, dolly, and zoom interaction
 
-The vehicle remained disarmed and on the ground, with four sampled motor
-channels at zero. This result does not verify manual vehicle control or the
-planned autonomy, safety, security, telemetry, ROS 2, or MAVSDK components.
+Phase 2A additionally verified QGroundControl v5.0.8 as an external operator
+telemetry runtime. It automatically detected one PX4 SITL vehicle over UDP,
+received a MAVLink heartbeat and 1000 parameters, and displayed live position,
+GPS, IMU, attitude, battery, and link data. The vehicle remained in Hold and
+standby, with `actuator_armed` and failsafe both zero. Four final actuator-output
+channels and the sampled PX4-Gazebo motor-speed commands remained zero.
+
+The observed small non-zero internal `actuator_motors` values were controller
+setpoints only; they were not present in final actuator outputs or applied
+Gazebo motor-speed commands. The vehicle remained disarmed and on the ground.
+These results do not verify manual vehicle control or the planned autonomy,
+safety, security, ROS 2, MAVSDK, or project-owned telemetry components.
 
 The planned system is a simulation-first, modular autonomy stack for civil
 research, safe navigation, and authorized visual tracking. Its primary control
@@ -47,6 +57,10 @@ Telemetry and the Security Monitor are cross-cutting observers. They are planned
 to observe all critical commands, approvals, rejections, state transitions,
 failsafe activations, health changes, and security-relevant events without
 becoming alternate command paths.
+
+QGroundControl is currently a verified external telemetry observer only. Phase
+2A did not use it to arm, change mode, upload a mission, modify a parameter, or
+send an actuator or other flight command.
 
 ## Planned Operating Boundary
 

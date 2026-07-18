@@ -1,6 +1,6 @@
 # Autonomous UAV Simulation
 
-**Current status:** Phase 1 complete — headless and GUI PX4 SITL/Gazebo X500 runtime verified
+**Current status:** Phase 2 in progress — QGroundControl telemetry runtime verified; vehicle control remains unverified
 
 ## Project Overview
 
@@ -10,7 +10,7 @@ marker and object tracking. The repository is designed around modular autonomy,
 explicit safety supervision, observable system behavior, and security-oriented
 command handling.
 
-> The simulation foundation is verified, but autonomous flight, perception, safety, and security features have not been implemented yet.
+> The simulation and operator telemetry foundations are verified without flight, but autonomous flight, perception, safety, and security features have not been implemented yet.
 
 ## Initial Objectives
 
@@ -27,11 +27,12 @@ command handling.
 - Ubuntu 24.04 on WSL2
 - PX4 SITL
 - Gazebo Harmonic
+- QGroundControl
 - ROS 2 Jazzy
 - MAVSDK
 - Python, C++, and OpenCV
 
-The Phase 1 tested PX4, Gazebo, and Python versions are pinned in
+The tested PX4, Gazebo, QGroundControl, and Python versions are pinned in
 [`toolchain/versions.yaml`](toolchain/versions.yaml). ROS 2 and MAVSDK remain
 uninstalled and their compatibility has not yet been tested.
 
@@ -65,9 +66,11 @@ uninstalled and their compatibility has not yet been tested.
 
 Phase 0 established repository and architecture scaffolding. Phase 1 verified the
 Ubuntu 24.04 WSL2 environment and the headless and WSLg GUI PX4 SITL/Gazebo
-Harmonic X500 runtime foundation. Phase 2, which covers manual vehicle-control
-verification, is next but has not started. Autonomous mission behavior and later
-capabilities remain planned; see the [roadmap](docs/roadmap/roadmap.md).
+Harmonic X500 runtime foundation. Phase 2A verified QGroundControl startup,
+automatic MAVLink telemetry, live vehicle data, and zero applied actuator and
+motor outputs while disarmed. Phase 2 remains in progress because manual vehicle
+control has not been verified. Autonomous mission behavior and later capabilities
+remain planned; see the [roadmap](docs/roadmap/roadmap.md).
 
 ## Safety and Security Position
 
@@ -81,6 +84,8 @@ principles. The project makes no production or real-flight security guarantee.
 - No flight, mission, perception, tracking, or security-monitoring code exists.
 - PX4 SITL and Gazebo Harmonic are installed outside this repository; headless
   and WSLg GUI X500 runtime foundations have been verified without flight.
+- QGroundControl is installed outside this repository; automatic telemetry has
+  been verified, but no flight command or parameter change was sent.
 - No ROS 2 packages, MAVSDK integration, active CI workflows, or project-owned
   simulation launch assets are configured.
 - Autonomous behavior has not been executed or verified.
@@ -96,6 +101,7 @@ principles. The project makes no production or real-flight security guarantee.
 - [Development environment](docs/setup/development-environment.md)
 - [Phase 1B headless smoke test](docs/setup/px4-gazebo-smoke-test-phase1b.md)
 - [Phase 1C Gazebo GUI smoke test](docs/setup/px4-gazebo-gui-smoke-test-phase1c.md)
+- [Phase 2A QGroundControl telemetry validation](docs/setup/qgroundcontrol-telemetry-validation-phase2a.md)
 - [Test strategy](docs/testing/test-strategy.md)
 - [Contributing](CONTRIBUTING.md)
 - [Security reporting](SECURITY.md)

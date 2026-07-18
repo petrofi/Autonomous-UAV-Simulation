@@ -25,11 +25,20 @@ components:
     version: "TBD_AFTER_MAVSDK_COMPATIBILITY_TEST"
     status: "not_installed"
 
+  qgroundcontrol:
+    version: "5.0.8"
+    status: "telemetry_runtime_verified"
+    installation_type: "extracted_appimage"
+    installation_location: "/home/darklove/Applications/QGroundControl/5.0.8"
+    sha256: "06969c67ef58ea063def0a8271447a1cc385438c4a7df36813315b4475146737"
+    rendering_path: "normal_wslg"
+
   python:
     version: "3.12.3"
 
 notes:
   - "PX4 SITL, Gazebo Harmonic server, the PX4-Gazebo bridge, and the X500 model passed the Phase 1B headless smoke test on 2026-07-16."
   - "The Gazebo Harmonic GUI opened through the normal WSLg rendering path and passed the Phase 1C X500 GUI smoke test on 2026-07-17."
-  - "ROS 2 and MAVSDK remain uninstalled and were not covered by the Phase 1B or Phase 1C compatibility results."
+  - "QGroundControl v5.0.8 passed Phase 2A telemetry-runtime validation on 2026-07-18; no vehicle-control capability was tested."
+  - "ROS 2 and MAVSDK remain uninstalled and were not covered by the Phase 1B, Phase 1C, or Phase 2A compatibility results."
   - "Do not silently upgrade major project dependencies."

@@ -1,8 +1,8 @@
 # Development Environment
 
-Status: Phase 1 verified — the minimum PX4 SITL and Gazebo Harmonic X500
-simulation foundation is installed and has passed headless and WSLg GUI runtime
-smoke tests.
+Status: Phase 2 in progress — the PX4 SITL and Gazebo Harmonic X500 simulation
+foundation has passed headless and WSLg GUI runtime smoke tests, and the
+QGroundControl telemetry runtime has been verified without flight.
 
 ## Verified Baseline
 
@@ -16,6 +16,9 @@ smoke tests.
 - Gazebo Harmonic with Gazebo Sim 8.14.0
 - Python 3.12.3 and the PX4-supported build toolchain
 - X500 model and PX4 airframe 4001 available
+- QGroundControl stable v5.0.8, extracted at
+  `/home/darklove/Applications/QGroundControl/5.0.8`
+- QGroundControl rendering through the normal WSLg path
 
 The centrally pinned versions are recorded in
 [`../../toolchain/versions.yaml`](../../toolchain/versions.yaml). Do not silently
@@ -53,15 +56,30 @@ Detailed records:
 - [Phase 1B headless runtime smoke test](px4-gazebo-smoke-test-phase1b.md)
 - [Phase 1C Gazebo GUI runtime smoke test](px4-gazebo-gui-smoke-test-phase1c.md)
 
+Phase 2A started the same PX4 SITL v1.17.0 and Gazebo Harmonic X500 runtime,
+then opened QGroundControl v5.0.8 through WSLg. QGroundControl automatically
+detected one simulated vehicle over UDP, received a MAVLink heartbeat and 1000
+parameters, and displayed live position, GPS, IMU, attitude, battery, and link
+telemetry. The vehicle remained in Hold, standby, disarmed, and without a
+failsafe. All sampled final actuator outputs and applied Gazebo motor-speed
+commands remained zero. A 15-minute safety timer ended PX4 and Gazebo with
+SIGINT, after which QGroundControl reported the expected communication loss.
+
+Detailed record:
+
+- [Phase 2A QGroundControl telemetry validation](qgroundcontrol-telemetry-validation-phase2a.md)
+
 ## Current Boundary
 
-ROS 2, MAVSDK, QGroundControl, Docker, and Gazebo Classic are not installed as
-project dependencies. No manual vehicle control, arming, takeoff, autonomous
-flight, mission logic, perception, or security feature has been implemented or
-verified.
+ROS 2, MAVSDK, Docker, and Gazebo Classic are not installed as project
+dependencies. QGroundControl is an external operator runtime whose telemetry
+connection has been verified; it is not a project-owned telemetry module. No
+manual vehicle control, arming, takeoff, autonomous flight, mission logic,
+perception, or security feature has been implemented or verified.
 
 The verified baseline establishes only that PX4 SITL, Gazebo Harmonic, the
 PX4-Gazebo bridge, and the X500 vehicle model can start, exchange simulation
 data, render through WSLg, support GUI camera navigation, and stop cleanly in the
-approved WSL2 environment. It does not establish controlled flight, production,
-or real-flight readiness.
+approved WSL2 environment, and that QGroundControl can receive live MAVLink
+telemetry while the vehicle remains disarmed. It does not establish controlled
+flight, production, or real-flight readiness.
