@@ -2,8 +2,8 @@
 
 Status: Phase 2 in progress — the PX4 SITL and Gazebo Harmonic X500 simulation
 foundation has passed headless and WSLg GUI runtime smoke tests, and the
-QGroundControl telemetry and controlled arm/disarm runtimes have been verified
-without takeoff or flight.
+QGroundControl telemetry, controlled arm/disarm, and one bounded vertical
+takeoff/hover/landing runtime have been verified.
 
 ## Verified Baseline
 
@@ -83,19 +83,35 @@ Detailed record:
 
 - [Phase 2B controlled arm/disarm validation](controlled-arm-disarm-validation-phase2b.md)
 
+Phase 2C used the existing PX4 configuration without changing a parameter. One
+normal arm and one normal takeoff request were accepted. The X500 ascended to
+the configured 2.5 m target, met the project hover criteria for 6.772 seconds,
+and received one normal land request from the independent 14-second flight
+watchdog. PX4 detected touchdown and disarmed automatically. Total armed time
+was 24.176 seconds, maximum ground-truth horizontal displacement was 0.058 m,
+and failsafe remained inactive. Final actuator outputs returned to zero and the
+post-disarm state was observed for more than 20 seconds. QGroundControl remained
+a read-only observer.
+
+Detailed record:
+
+- [Phase 2C controlled takeoff, hover, and landing validation](controlled-takeoff-hover-landing-validation-phase2c.md)
+
 ## Current Boundary
 
 ROS 2, MAVSDK, Docker, and Gazebo Classic are not installed as project
 dependencies. QGroundControl is an external operator runtime whose telemetry
-connection has been verified; it is not a project-owned telemetry module. No
-takeoff, hover, landing, throttle-bearing manual flight, autonomous flight,
-mission logic, perception, or security feature has been implemented or
-verified. Only normal simulation arm/disarm and idle-output behavior have been
-verified.
+connection and read-only flight-state observation have been verified; it is not
+a project-owned telemetry module. No horizontal or throttle-bearing manual
+flight, waypoint navigation, autonomous flight, mission logic, perception, or
+security feature has been implemented or verified. Only normal simulation
+arm/disarm and one bounded vertical takeoff, stationary hover, landing, and
+landed-state disarm have been verified.
 
 The verified baseline establishes only that PX4 SITL, Gazebo Harmonic, the
 PX4-Gazebo bridge, and the X500 vehicle model can start, exchange simulation
 data, render through WSLg, support GUI camera navigation, and stop cleanly in the
 approved WSL2 environment, and that QGroundControl can receive live MAVLink
-telemetry and arm-state changes. It does not establish takeoff, controlled
-flight, production, or real-flight readiness.
+telemetry and controlled-flight state changes. It establishes one bounded
+vertical simulation flight only; it does not establish general manual flight,
+horizontal navigation, production, or real-flight readiness.

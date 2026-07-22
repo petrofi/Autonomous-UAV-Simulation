@@ -1,6 +1,6 @@
 # Autonomous UAV Simulation
 
-**Current status:** Phase 2 in progress — controlled simulation arm/disarm verified; takeoff and flight remain unverified
+**Current status:** Phase 2 in progress — controlled simulation takeoff, short stationary hover, landing, and landed-state disarm verified; horizontal flight remains unverified
 
 ## Project Overview
 
@@ -10,7 +10,7 @@ marker and object tracking. The repository is designed around modular autonomy,
 explicit safety supervision, observable system behavior, and security-oriented
 command handling.
 
-> The simulation, operator telemetry, and controlled arm/disarm foundations are verified without takeoff or flight, but autonomous flight, perception, safety, and security features have not been implemented yet.
+> The simulation, operator telemetry, and bounded vertical takeoff/hover/landing foundations are verified, but horizontal navigation, autonomous flight, perception, safety, and security features have not been implemented yet.
 
 ## Initial Objectives
 
@@ -71,8 +71,11 @@ automatic MAVLink telemetry, live vehicle data, and zero applied actuator and
 motor outputs while disarmed. Phase 2B then verified one normal simulation arm
 and disarm cycle, expected symmetric idle motor output, and continued ground
 contact without sending throttle, takeoff, movement, mission, or mode-change
-commands. Phase 2 remains in progress, and autonomous mission behavior and later
-capabilities remain planned; see the [roadmap](docs/roadmap/roadmap.md).
+commands. Phase 2C verified one normal simulation takeoff, a short stationary
+hover at the configured target, normal landing, and automatic landed-state
+disarm without horizontal navigation or QGroundControl control input. Phase 2
+remains in progress, and autonomous mission behavior and later capabilities
+remain planned; see the [roadmap](docs/roadmap/roadmap.md).
 
 ## Safety and Security Position
 
@@ -83,12 +86,14 @@ principles. The project makes no production or real-flight security guarantee.
 
 ## Current Limitations
 
-- No flight, mission, perception, tracking, or security-monitoring code exists.
+- No horizontal-flight, mission, perception, tracking, or security-monitoring
+  project code exists.
 - PX4 SITL and Gazebo Harmonic are installed outside this repository; headless
-  and WSLg GUI X500 runtime foundations have been verified without flight.
+  and WSLg GUI X500 runtime foundations and one bounded vertical flight have
+  been verified in simulation.
 - QGroundControl is installed outside this repository; automatic telemetry has
-  been verified, including armed-state observation, but no takeoff, throttle,
-  movement, mission, mode-change, or parameter command was sent.
+  been verified, including arm and flight-mode observation, but it sent no arm,
+  takeoff, land, movement, mission, mode-change, or parameter command.
 - No ROS 2 packages, MAVSDK integration, active CI workflows, or project-owned
   simulation launch assets are configured.
 - Autonomous behavior has not been executed or verified.
@@ -106,6 +111,7 @@ principles. The project makes no production or real-flight security guarantee.
 - [Phase 1C Gazebo GUI smoke test](docs/setup/px4-gazebo-gui-smoke-test-phase1c.md)
 - [Phase 2A QGroundControl telemetry validation](docs/setup/qgroundcontrol-telemetry-validation-phase2a.md)
 - [Phase 2B controlled arm/disarm validation](docs/setup/controlled-arm-disarm-validation-phase2b.md)
+- [Phase 2C controlled takeoff, hover, and landing validation](docs/setup/controlled-takeoff-hover-landing-validation-phase2c.md)
 - [Test strategy](docs/testing/test-strategy.md)
 - [Contributing](CONTRIBUTING.md)
 - [Security reporting](SECURITY.md)

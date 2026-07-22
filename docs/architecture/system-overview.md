@@ -1,8 +1,9 @@
 # Conceptual System Overview
 
 Status: The headless and GUI simulation foundation and QGroundControl telemetry
-runtime and a controlled simulation arm/disarm cycle are verified without
-takeoff or flight; autonomy architecture components remain conceptual and
+runtime, controlled arm/disarm, and one bounded vertical takeoff/hover/landing
+cycle are verified; horizontal flight and autonomy architecture components
+remain
 unimplemented.
 
 ## Verified Simulation Foundation
@@ -38,6 +39,17 @@ and all applied outputs returned to zero. The vehicle remained landed, in Hold,
 and without a failsafe. No autonomy path, takeoff, throttle, movement, mission,
 mode-change, raw-actuator, or forced-arm command was used.
 
+Phase 2C verified a separate explicitly authorized operator-controlled PX4 SITL
+test. One normal arm request and one normal takeoff request were accepted. The
+X500 ascended vertically to the existing 2.5 m target, held position for a
+6.772-second stable interval, and then received one normal land request from the
+independent flight watchdog. PX4 detected touchdown and disarmed automatically.
+Failsafe remained inactive, local position and velocity remained valid, and
+post-disarm final actuator outputs returned to zero. QGroundControl observed the
+armed, Takeoff, Hold, Land, and disarmed transitions without becoming a command
+path. No horizontal, manual-control, waypoint, mission, Return-to-Home,
+raw-actuator, forced, or autonomy command was used.
+
 The planned system is a simulation-first, modular autonomy stack for civil
 research, safe navigation, and authorized visual tracking. Its primary control
 path is deliberately constrained:
@@ -68,9 +80,10 @@ failsafe activations, health changes, and security-relevant events without
 becoming alternate command paths.
 
 QGroundControl is currently a verified external telemetry observer only. Phase
-2A and Phase 2B did not use it to arm, change mode, upload a mission, modify a
-parameter, or send an actuator or other flight command. Phase 2B verified that
-it received the PX4 armed and disarmed state transitions.
+2A, Phase 2B, and Phase 2C did not use it to arm, take off, land, change mode,
+upload a mission, modify a parameter, or send an actuator or other flight
+command. Phase 2C verified that it received the armed, Takeoff, Hold, Land, and
+disarmed state transitions for exactly one PX4 vehicle.
 
 ## Planned Operating Boundary
 
