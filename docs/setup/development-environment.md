@@ -3,7 +3,8 @@
 Status: Phase 2 in progress — the PX4 SITL and Gazebo Harmonic X500 simulation
 foundation has passed headless and WSLg GUI runtime smoke tests, and the
 QGroundControl telemetry, controlled arm/disarm, and one bounded vertical
-takeoff/hover/landing runtime have been verified.
+takeoff/hover/landing runtime have been verified. An external MAVSDK-Python
+telemetry-only connection is also verified; MAVSDK control remains unverified.
 
 ## Verified Baseline
 
@@ -20,6 +21,10 @@ takeoff/hover/landing runtime have been verified.
 - QGroundControl stable v5.0.8, extracted at
   `/home/darklove/Applications/QGroundControl/5.0.8`
 - QGroundControl rendering through the normal WSLg path
+- MAVSDK-Python 3.17.2 in the isolated external virtual environment
+  `/home/darklove/.venvs/autonomous-uav-mavsdk`
+- Embedded `mavsdk_server` using `udpin://0.0.0.0:14540` and local gRPC port
+  50051
 
 The centrally pinned versions are recorded in
 [`../../toolchain/versions.yaml`](../../toolchain/versions.yaml). Do not silently
@@ -97,21 +102,38 @@ Detailed record:
 
 - [Phase 2C controlled takeoff, hover, and landing validation](controlled-takeoff-hover-landing-validation-phase2c.md)
 
+Phase 2D-A installed MAVSDK-Python 3.17.2 only in the isolated external virtual
+environment and connected its embedded `mavsdk_server` to one PX4 SITL vehicle
+through `udpin://0.0.0.0:14540`. The telemetry-only probe received health, GPS,
+global and local position, velocity, attitude, battery, flight-mode, armed, and
+in-air data continuously for 125.000 seconds with no interruption or reconnect.
+PX4 remained in Hold, disarmed, landed, and at rest; Offboard control remained
+disabled and every retained applied actuator output was zero. No MAVSDK Action,
+Offboard, GoTo, mission, manual-control, parameter, or actuator method was used.
+
+Detailed record:
+
+- [Phase 2D-A MAVSDK telemetry validation](mavsdk-telemetry-validation-phase2da.md)
+
 ## Current Boundary
 
-ROS 2, MAVSDK, Docker, and Gazebo Classic are not installed as project
-dependencies. QGroundControl is an external operator runtime whose telemetry
-connection and read-only flight-state observation have been verified; it is not
-a project-owned telemetry module. No horizontal or throttle-bearing manual
-flight, waypoint navigation, autonomous flight, mission logic, perception, or
-security feature has been implemented or verified. Only normal simulation
-arm/disarm and one bounded vertical takeoff, stationary hover, landing, and
-landed-state disarm have been verified.
+ROS 2, Docker, and Gazebo Classic are not installed as project dependencies.
+MAVSDK-Python is installed only in an isolated external virtual environment and
+has passed telemetry-only compatibility validation; it is not yet a
+project-owned command client. QGroundControl is an external operator runtime
+whose telemetry connection and read-only flight-state observation have been
+verified; it is not a project-owned telemetry module. No MAVSDK control,
+horizontal or throttle-bearing manual flight, waypoint navigation, autonomous
+flight, mission logic, perception, or security feature has been implemented or
+verified. Only read-only MAVSDK telemetry, normal simulation arm/disarm, and one
+bounded vertical takeoff, stationary hover, landing, and landed-state disarm
+have been verified.
 
 The verified baseline establishes only that PX4 SITL, Gazebo Harmonic, the
 PX4-Gazebo bridge, and the X500 vehicle model can start, exchange simulation
 data, render through WSLg, support GUI camera navigation, and stop cleanly in the
 approved WSL2 environment, and that QGroundControl can receive live MAVLink
-telemetry and controlled-flight state changes. It establishes one bounded
-vertical simulation flight only; it does not establish general manual flight,
-horizontal navigation, production, or real-flight readiness.
+telemetry and controlled-flight state changes. It also establishes that the
+external MAVSDK-Python runtime can receive telemetry through the standard PX4
+SITL UDP endpoint. It does not establish MAVSDK vehicle control, general manual
+flight, horizontal navigation, production, or real-flight readiness.

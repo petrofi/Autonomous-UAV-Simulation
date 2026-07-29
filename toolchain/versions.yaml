@@ -22,8 +22,18 @@ components:
     metapackage_version: "1.0.0-1~noble"
 
   mavsdk:
-    version: "TBD_AFTER_MAVSDK_COMPATIBILITY_TEST"
-    status: "not_installed"
+    version: "3.17.2"
+    status: "telemetry_runtime_verified"
+    installation_type: "python_virtual_environment"
+    installation_location: "/home/darklove/.venvs/autonomous-uav-mavsdk"
+    package_source: "https://pypi.org/project/mavsdk/3.17.2/"
+    wheel: "mavsdk-3.17.2-py3-none-manylinux1_x86_64.manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_5_x86_64.whl"
+    wheel_sha256: "78ac2402306022bb6000e1fa02dfe4af7a634c803d4ca90673b1c7918a23c937"
+    embedded_server: "verified"
+    embedded_server_sha256: "81f3a63f91695b844067b42afa5d994cc6e858b88b35cdfc5e069e9945221d7d"
+    connection_url: "udpin://0.0.0.0:14540"
+    grpc_port: 50051
+    vehicle_control: "not_verified"
 
   qgroundcontrol:
     version: "5.0.8"
@@ -44,5 +54,6 @@ notes:
   - "QGroundControl v5.0.8 passed Phase 2A telemetry-runtime validation on 2026-07-18; no vehicle-control capability was tested."
   - "PX4 SITL and QGroundControl passed the Phase 2B normal arm/disarm state validation on 2026-07-18; only simulation idle output was observed and no takeoff or flight command was sent."
   - "PX4 SITL, Gazebo Harmonic, and QGroundControl passed the Phase 2C bounded vertical takeoff, short stationary hover, landing, and landed-state disarm validation on 2026-07-19; no horizontal navigation was performed."
-  - "ROS 2 and MAVSDK remain uninstalled and were not covered by the Phase 1B, Phase 1C, Phase 2A, Phase 2B, or Phase 2C compatibility results."
+  - "MAVSDK-Python 3.17.2 passed Phase 2D-A telemetry-only integration validation through the standard PX4 SITL UDP endpoint on 2026-07-29; no MAVSDK vehicle-control method was used."
+  - "ROS 2 remains uninstalled. MAVSDK Action, Offboard, GoTo, mission, parameter, manual-control, actuator, and other vehicle-control capabilities remain unverified."
   - "Do not silently upgrade major project dependencies."

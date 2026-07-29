@@ -1,6 +1,6 @@
 # Autonomous UAV Simulation
 
-**Current status:** Phase 2 in progress — controlled simulation takeoff, short stationary hover, landing, and landed-state disarm verified; horizontal flight remains unverified
+**Current status:** Phase 2 in progress — bounded vertical flight and external MAVSDK telemetry integration verified; MAVSDK control and horizontal flight remain unverified
 
 ## Project Overview
 
@@ -32,9 +32,11 @@ command handling.
 - MAVSDK
 - Python, C++, and OpenCV
 
-The tested PX4, Gazebo, QGroundControl, and Python versions are pinned in
-[`toolchain/versions.yaml`](toolchain/versions.yaml). ROS 2 and MAVSDK remain
-uninstalled and their compatibility has not yet been tested.
+The tested PX4, Gazebo, QGroundControl, MAVSDK-Python, and Python versions are
+pinned in [`toolchain/versions.yaml`](toolchain/versions.yaml). ROS 2 remains
+uninstalled. MAVSDK-Python is installed only in an external virtual environment;
+its read-only telemetry compatibility is verified, but its vehicle-control
+capabilities are not.
 
 ## Architecture Principles
 
@@ -74,8 +76,11 @@ contact without sending throttle, takeoff, movement, mission, or mode-change
 commands. Phase 2C verified one normal simulation takeoff, a short stationary
 hover at the configured target, normal landing, and automatic landed-state
 disarm without horizontal navigation or QGroundControl control input. Phase 2
-remains in progress, and autonomous mission behavior and later capabilities
-remain planned; see the [roadmap](docs/roadmap/roadmap.md).
+2D-A then verified an external MAVSDK-Python 3.17.2 telemetry-only connection
+through the standard PX4 SITL UDP endpoint while the vehicle remained disarmed,
+landed, and stationary. Phase 2 remains in progress, and MAVSDK control,
+horizontal flight, autonomous mission behavior, and later capabilities remain
+planned; see the [roadmap](docs/roadmap/roadmap.md).
 
 ## Safety and Security Position
 
@@ -94,8 +99,11 @@ principles. The project makes no production or real-flight security guarantee.
 - QGroundControl is installed outside this repository; automatic telemetry has
   been verified, including arm and flight-mode observation, but it sent no arm,
   takeoff, land, movement, mission, mode-change, or parameter command.
-- No ROS 2 packages, MAVSDK integration, active CI workflows, or project-owned
-  simulation launch assets are configured.
+- No ROS 2 packages, MAVSDK vehicle-control integration, active CI workflows,
+  or project-owned simulation launch assets are configured.
+- MAVSDK-Python telemetry was verified from an isolated external virtual
+  environment; Action, Offboard, GoTo, mission, and parameter APIs remain
+  unverified and outside the current command path.
 - Autonomous behavior has not been executed or verified.
 - The repository is not ready for production or real-flight use.
 
@@ -112,6 +120,7 @@ principles. The project makes no production or real-flight security guarantee.
 - [Phase 2A QGroundControl telemetry validation](docs/setup/qgroundcontrol-telemetry-validation-phase2a.md)
 - [Phase 2B controlled arm/disarm validation](docs/setup/controlled-arm-disarm-validation-phase2b.md)
 - [Phase 2C controlled takeoff, hover, and landing validation](docs/setup/controlled-takeoff-hover-landing-validation-phase2c.md)
+- [Phase 2D-A MAVSDK telemetry validation](docs/setup/mavsdk-telemetry-validation-phase2da.md)
 - [Test strategy](docs/testing/test-strategy.md)
 - [Contributing](CONTRIBUTING.md)
 - [Security reporting](SECURITY.md)

@@ -2,8 +2,8 @@
 
 Status: The headless and GUI simulation foundation and QGroundControl telemetry
 runtime, controlled arm/disarm, and one bounded vertical takeoff/hover/landing
-cycle are verified; horizontal flight and autonomy architecture components
-remain
+cycle are verified. An external MAVSDK telemetry-only runtime is also verified;
+MAVSDK control, horizontal flight, and autonomy architecture components remain
 unimplemented.
 
 ## Verified Simulation Foundation
@@ -50,6 +50,16 @@ armed, Takeoff, Hold, Land, and disarmed transitions without becoming a command
 path. No horizontal, manual-control, waypoint, mission, Return-to-Home,
 raw-actuator, forced, or autonomy command was used.
 
+Phase 2D-A verified MAVSDK-Python 3.17.2 as a second external telemetry observer.
+Its embedded `mavsdk_server` discovered one PX4 SITL system through the standard
+`udpin://0.0.0.0:14540` endpoint and delivered health, GPS, position, velocity,
+attitude, battery, flight-mode, armed, and in-air telemetry for 125.000 seconds
+without interruption. PX4 remained disarmed, landed, at rest, in Hold, and
+without a failsafe; Offboard control remained disabled and applied actuator
+outputs remained zero. The probe did not access Action, Offboard, Mission,
+MissionRaw, ManualControl, Calibration, Param, or Shell control APIs. This
+checkpoint verifies an observer path only, not a guidance or command path.
+
 The planned system is a simulation-first, modular autonomy stack for civil
 research, safe navigation, and authorized visual tracking. Its primary control
 path is deliberately constrained:
@@ -90,7 +100,9 @@ disarmed state transitions for exactly one PX4 vehicle.
 - Gazebo provides the simulated environment and vehicle model.
 - PX4 SITL provides the planned flight-control behavior.
 - ROS 2 provides planned modular communication and lifecycle integration.
-- MAVSDK provides a planned mission-client boundary for authorized high-level interaction.
+- MAVSDK has a verified external telemetry-observer path and provides a planned
+  mission-client boundary for future authorized high-level interaction. Its
+  control path is not implemented or verified.
 - Safety policies constrain altitude, speed, operating area, command freshness, and system health.
 
 Concrete interfaces, ROS 2 topic names, quality-of-service profiles, and runtime
